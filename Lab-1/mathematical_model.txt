@@ -1,0 +1,12 @@
+a) Determine if a certain element is member in a list.
+is_member([l1, l2,..., ln], x) =
+                    false, n = 0
+                    true, l1 = x 
+                    is_member([l2, ..., ln], x), otherwise
+                   
+
+b) Determine the length of a list.
+
+list_length([l1, l2,..., ln]) = 
+                        0, n=0
+                        1 + list_length([l2, ..., ln]), otherwise 
