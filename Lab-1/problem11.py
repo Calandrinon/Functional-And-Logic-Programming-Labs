@@ -68,25 +68,6 @@ def list_length(my_list):
     return 1 + list_length(new_list_parameter)
 
 
-def test_member():
-    test_list = [2, 6, 4, 2, 1, 9]
-    assert(is_member(test_list, 1) == True)
-    assert(is_member(test_list, 222) == False)
-    test_list = []
-    assert(is_member(test_list, 1) == False)
-    print("Is_member test passed.")
-
-
-def test_length():
-    test_list = [2, 6, 4, 2, 1, 9]
-    assert(list_length(test_list) == 6)
-    test_list = []
-    assert(list_length(test_list) == 0)
-    test_list = [1, 2, 5]
-    assert(list_length(test_list) == 3)
-    print("List_length test passed.")
-
-
 def test():
     list = create_list()
     print_list(list)
