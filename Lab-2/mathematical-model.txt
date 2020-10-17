@@ -1,0 +1,20 @@
+13.        
+a. Transform a list in a set, in the order of the last occurrences of elements. 
+    Eg.: [1,2,3,1,2] is transformed in [3,1,2].
+b. Define a predicate to determine the greatest common divisor of all numbers in a list.
+
+
+a.
+    reverse([l1, l2, ..., ln], Rev, C) =
+                                        Rev is C, n = 0
+                                        reverse([l2, ..., ln], [l1 | C]) otherwise
+                
+
+    list_to_set([l1, l2, ..., ln], Set, C) =
+                                        Set is C, n=0
+                                        list_to_set([l2, ..., ln], Set, [l1 | C]), if l1 not a member of C
+                                        list_to_set([l2, ..., ln], Set, C) otherwise 
+
+
+    list_to_set_wrapper([l1, l2, ..., ln], Set) =    
+                                        reverse([l1, l2, ..., ln], Rev) and list_to_set(Rev, Set, [])

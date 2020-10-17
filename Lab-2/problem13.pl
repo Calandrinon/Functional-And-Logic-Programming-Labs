@@ -5,17 +5,22 @@
     b. Define a predicate to determine the greatest common divisor of all numbers in a list.
 */
 
-reverse([], Acc, Acc).
-reverse([H|T], Rev, Acc) :-
-    reverse(T, Rev, [H|Acc]).
+
+%---------------------------------  a  -------------------------------------
+
+reverse([], C, C).
+reverse([H|T], Rev, C) :-
+    reverse(T, Rev, [H|C]).
 
 
-inner_lts([], Acc, Acc). 
-inner_lts([H|T], Set, Acc) :- 
-    not(member(H, Acc)) -> inner_lts(T, Set, [H | Acc]);
-    inner_lts(T, Set, Acc). 
+inner_lts([], C, C). 
+inner_lts([H|T], Set, C) :- not(member(H, C)), inner_lts(T, Set, [H | C]), !.
+inner_lts([_|T], Set, C) :- inner_lts(T, Set, C), !.
 
 
 list_to_set(List, Set) :-    
     reverse(List, Rev),
     inner_lts(Rev, Set, []).
+
+%---------------------------------  b  -------------------------------------
+    
