@@ -68,7 +68,7 @@ def list_length(my_list):
     return 1 + list_length(new_list_parameter)
 
 
-def test():
+def test_with_input():
     list = create_list()
     print_list(list)
 
@@ -81,5 +81,23 @@ def test():
     length = list_length(list)
     print("The length of the list is {}.".format(length))
 
-test()
 
+def test_hardcoded():
+    list = MyList()
+    list.head = Node(2)
+    list.head.next = Node(5)
+    list.head.next.next = Node(7)
+    list.head.next.next.next = Node(2)
+    print_list_recursively(list.head)    
+
+    list2 = MyList()
+
+    assert(is_member(list, 2) == True)
+    assert(is_member(list, 100) == False)
+
+    assert(list_length(list) == 4)
+    assert(list_length(list2) == 0)
+
+
+#test_with_input()
+test_hardcoded()
