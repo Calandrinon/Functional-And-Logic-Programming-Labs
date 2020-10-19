@@ -13,20 +13,19 @@ reverse([H|T], Rev, C) :-
     reverse(T, Rev, [H|C]).
 
 
-inner_lts([], C, C). 
-inner_lts([H|T], Set, C) :- not(member(H, C)), inner_lts(T, Set, [H | C]), !.
-inner_lts([_|T], Set, C) :- inner_lts(T, Set, C), !.
+list_to_set([], C, C). 
+list_to_set([H|T], Set, C) :- not(member(H, C)), list_to_set(T, Set, [H | C]), !.
+list_to_set([_|T], Set, C) :- list_to_set(T, Set, C), !.
 
 
 list_to_set(List, Set) :-    
     reverse(List, Rev),
-    inner_lts(Rev, Set, []).
+    list_to_set(Rev, Set, []).
 
 %---------------------------------  b  -------------------------------------
     
 gcd(A, B, B) :- A mod B =:= 0.
-gcd(A, B, Result) :- A > B, NewDivisor is A mod B, gcd(B, NewDivisor, Result2), Result is Result2, !.
-gcd(A, B, Result) :- B > A, gcd(B, A, Result), !.
+gcd(A, B, Result) :- NewDivisor is A mod B, gcd(B, NewDivisor, Result2), Result is Result2, !.
 
 gcd_list([], 0).
 gcd_list([A], A).
