@@ -23,8 +23,7 @@ a.
 b.  
     gcd(a, b, res) =
                 res is b, a mod b = 0
-                gcd(b, a mod b), a > b
-                gcd(b, a), b > a
+                gcd(b, a mod b, res) otherwise
             
 
     gcd_list([l1, l2, ..., ln], Result) =
