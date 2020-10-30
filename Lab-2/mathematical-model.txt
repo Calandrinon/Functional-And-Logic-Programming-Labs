@@ -12,7 +12,7 @@ a.
 
     list_to_set([l1, l2, ..., ln], Set, C) =
                                         Set is C, n=0
-                                        list_to_set([l2, ..., ln], Set, [l1 | C]), if l1 not a member of C
+                                        list_to_set([l2, ..., ln], Set, l1 U C), if l1 not a member of C
                                         list_to_set([l2, ..., ln], Set, C) otherwise 
 
 
@@ -27,7 +27,11 @@ b.
             
 
     gcd_list([l1, l2, ..., ln], Result) =
-                0, n = 0 
+                0, n = 1 
                 Result is l1, n = 1
                 gcd(l1, l2, Result), n = 2
                 gcd_list([GCD|l3, ..., ln], Result), otherwise, where GCD is res from gcd(l1, l2, res) 
+
+
+    odd([L1, l2, l3, .., ln]) =
+                0 

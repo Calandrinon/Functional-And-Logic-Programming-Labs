@@ -99,5 +99,5 @@ def test_hardcoded():
     assert(list_length(list2) == 0)
 
 
-#test_with_input()
-test_hardcoded()
+test_with_input()
+#test_hardcoded()

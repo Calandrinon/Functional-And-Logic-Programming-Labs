@@ -1,0 +1,9 @@
+bind_lists([l1, l2, ..., ln], [k1, k2, ..., km], OutputList) =
+                                                OutputList is [k1, k2, ..., km], n = 0 
+                                                bind_lists([l2, ..., ln], [k1, k2, .., km], [l1 | OutputList]), otherwise
+
+
+subst([l1, l2, ..., ln], E, [k1, k2, ..., km], X) =
+                                                X is [], n = 0
+                                                subst([l2, l3, .., ln], E, [k1, k2, .., km], X2) and bind_lists([k1, k2, .., km], X2, newlist) and X is newlist, l1 = E
+                                                subst([l2, l3, .., ln], E, [k1, k2, .., km], X2) and X = [l1 | X2], otherwise

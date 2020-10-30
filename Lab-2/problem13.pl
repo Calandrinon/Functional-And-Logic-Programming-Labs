@@ -31,3 +31,6 @@ gcd_list([], 0).
 gcd_list([A], A).
 gcd_list([A, B], Result) :- gcd(A, B, Result), !.
 gcd_list([H1, H2|T], Result) :- gcd(H1, H2, NewH), gcd_list([NewH|T], Result2), Result is Result2. 
+
+odd([H]).
+odd([H1, H2|T]) :- odd(T). 
