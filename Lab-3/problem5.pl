@@ -17,3 +17,17 @@ subst([], _, _, []).
 subst([H|T], E, OtherList, Res) :- H = E, subst(T, E, OtherList, Res2), !, bind_lists(OtherList, Res2, GluedLists), Res = GluedLists.
 subst([H|T], E, OtherList, Res) :- H \= E, subst(T, E, OtherList, Res2), !, Res = [H|Res2].
 
+first_occurence_subst([], _, []).
+first_occurence_subst([H|T], OtherList, Res) :- 
+    is_list(H),
+    H = [H1 | _],
+    subst(H, H1, OtherList, Subres),
+    first_occurence_subst(T, OtherList, Res2),
+    !,
+    Res = [Subres | Res2].
+
+first_occurence_subst([H|T], OtherList, Res) :- 
+    number(H),
+    first_occurence_subst(T, OtherList, Res2),
+    !,
+    Res = [H | Res2].

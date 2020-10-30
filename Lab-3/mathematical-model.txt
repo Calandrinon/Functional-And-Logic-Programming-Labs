@@ -7,3 +7,8 @@ subst([l1, l2, ..., ln], E, [k1, k2, ..., km], X) =
                                                 X is [], n = 0
                                                 subst([l2, l3, .., ln], E, [k1, k2, .., km], X2) and bind_lists([k1, k2, .., km], X2, newlist) and X is newlist, l1 = E
                                                 subst([l2, l3, .., ln], E, [k1, k2, .., km], X2) and X = [l1 | X2], otherwise
+
+first_occurence_subst([l1,l2..ln], OtherList, Res) =
+                                            Res = [], n = 0
+                                            subst(l1, l1_1, OtherList, Subres) and first_occurence_subst([l2,..ln], OtherList, Result2) and Res = [Subres|Result2], l1 is a list
+                                            first_occurence_subst([l2,..ln], OtherList, Result2) and Res = [l1 | Result2], otherwise
