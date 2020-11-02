@@ -10,11 +10,16 @@
  *                  [1, [11, 11, 1, 11, 11], 3, 6, [11, 11, 10, 1, 3, 9], 5, [11 11 11 11 11 11], 7]
  * **/
 
-bind_lists([], L, L). % bind_lists(I, I, O)
-bind_lists([H|T], L, [H|M]) :- bind_lists(T, L, M).
+
+%concatenate_lists(I, I, O)
+concatenate_lists([H], List2, Res) :- !, Res = [H | List2].
+concatenate_lists([H|T], List2, Res) :- 
+    concatenate_lists(T, List2, Res2),
+    !,
+    Res = [H | Res2].
 
 subst([], _, _, []). % subst(I, I, I, O)
-subst([H|T], E, OtherList, Res) :- H = E, subst(T, E, OtherList, Res2), !, bind_lists(OtherList, Res2, GluedLists), Res = GluedLists.
+subst([H|T], E, OtherList, Res) :- H = E, subst(T, E, OtherList, Res2), !, concatenate_lists(OtherList, Res2, GluedLists), Res = GluedLists.
 subst([H|T], E, OtherList, Res) :- H \= E, subst(T, E, OtherList, Res2), !, Res = [H|Res2].
 
 
