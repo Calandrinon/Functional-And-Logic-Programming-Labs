@@ -1,0 +1,22 @@
+/**
+ * For a list a1...an with distinct integer numbers, define a predicate to determine all subsets with sum of elements divisible with n.
+ * **/
+
+ subset([l1,l2..ln]) =
+    [], n = 0
+        1. l1 U subset([l2..ln]) otherwise  
+        2. subset([l2..ln]) otherwise
+
+
+sum([l1,l2..ln]) = 
+    0, n = 0
+    l1 + sum([l2..ln]) otherwise
+
+
+divSumSubset([l1,l2..ln], E) =
+    [], n = 0
+    1. Subset = subset([l1,l2..ln])
+    2. Subset, sum(Subset) % E = 0
+     
+
+divSumSubsetWrapper([l1,l2..ln], E) = U divSumSubset([l1,l2..ln], E)

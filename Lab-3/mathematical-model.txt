@@ -1,14 +1,14 @@
-bind_lists([l1, l2, ..., ln], [k1, k2, ..., km], OutputList) =
-                                                OutputList is [k1, k2, ..., km], n = 0 
-                                                bind_lists([l2, ..., ln], [k1, k2, .., km], [l1 | OutputList]), otherwise
+concatenate_lists([l1, l2, ..., ln], [k1, k2, ..., km], OutputList) =
+                                                OutputList is [l1 U [k1, k2, ..., km]], n = 1
+                                                concatenate_lists([l2, ..., ln], [k1, k2, .., km], OutputList2) and OutputList = [l1 U OutputList2] otherwise
 
 
 subst([l1, l2, ..., ln], E, [k1, k2, ..., km], X) =
                                                 X is [], n = 0
-                                                subst([l2, l3, .., ln], E, [k1, k2, .., km], X2) and bind_lists([k1, k2, .., km], X2, newlist) and X is newlist, l1 = E
-                                                subst([l2, l3, .., ln], E, [k1, k2, .., km], X2) and X = [l1 | X2], otherwise
+                                                subst([l2, l3, .., ln], E, [k1, k2, .., km], X2) and concatenate_lists([k1, k2, .., km], X2, newlist) and X is newlist, l1 = E
+                                                subst([l2, l3, .., ln], E, [k1, k2, .., km], X2) and X = [l1 U X2], otherwise
 
 first_occurence_subst([l1,l2..ln], OtherList, Res) =
                                             Res = [], n = 0
-                                            subst(l1, l1_1, OtherList, Subres) and first_occurence_subst([l2,..ln], OtherList, Result2) and Res = [Subres|Result2], l1 is a list
-                                            first_occurence_subst([l2,..ln], OtherList, Result2) and Res = [l1 | Result2], otherwise
+                                            subst(l1, l1_1, OtherList, Subres) and first_occurence_subst([l2,..ln], OtherList, Result2) and Res = [Subres U Result2], l1 is a list
+                                            first_occurence_subst([l2,..ln], OtherList, Result2) and Res = [l1 U Result2], otherwise

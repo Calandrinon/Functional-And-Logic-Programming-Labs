@@ -19,7 +19,7 @@ concatenate_lists([H|T], List2, Res) :-
     Res = [H | Res2].
 
 subst([], _, _, []). % subst(I, I, I, O)
-subst([H|T], E, OtherList, Res) :- H = E, subst(T, E, OtherList, Res2), !, concatenate_lists(OtherList, Res2, GluedLists), Res = GluedLists.
+subst([H|T], E, OtherList, Res) :- H = E, subst(T, E, OtherList, Res2), concatenate_lists(OtherList, Res2, GluedLists), !, Res = GluedLists.
 subst([H|T], E, OtherList, Res) :- H \= E, subst(T, E, OtherList, Res2), !, Res = [H|Res2].
 
 
