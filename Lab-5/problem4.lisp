@@ -24,3 +24,28 @@
 		((not (listp l)) (list l))
 		(t (concatenate_lists (same_level_atoms (car l)) (same_level_atoms (cdr l))))
 	))
+
+
+;; c) Write a function that, with a list given as parameter,
+;;    inverts only continuous sequences of atoms. 
+;;    Example: (a b c (d (e f) g h i)) ==> (c b a (d (f e) i h g))
+
+
+;; d) Write a function to return the maximum value of the numerical atoms from a list, at superficial level.
+
+(defun max_num (a b) 
+  	(cond
+	  	((equal a nil) b)
+	  	((equal b nil) a)
+		((> a b) a)
+		(t b)
+	))
+
+(defun max_list (l)
+	(cond
+	  	((null l) nil)
+		((listp (car l)) (max_num (max_list (car l)) (max_list (cdr l))))
+	  	((= (length l) 2) (max_num (car l) (car (cdr l))))
+		(t (max_num (car l) (max_list (cdr l))))
+	))
+
