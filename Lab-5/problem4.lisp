@@ -30,6 +30,19 @@
 ;;    inverts only continuous sequences of atoms. 
 ;;    Example: (a b c (d (e f) g h i)) ==> (c b a (d (f e) i h g))
 
+(defun invert (list &optional acc)
+ 	(cond
+		((null list) acc)
+		(t 
+			(typecase (car list)
+				(list
+					(append acc
+					(list (invert (car list)))
+					(invert (cdr list)))
+				)
+				(t (invert (cdr list) (cons (car list) acc)))
+			)
+		)))
 
 ;; d) Write a function to return the maximum value of the numerical atoms from a list, at superficial level.
 
