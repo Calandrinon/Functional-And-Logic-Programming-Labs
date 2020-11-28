@@ -1,5 +1,12 @@
 ;; a) Write a function to return the sum of two vectors.
 
+#|
+	two_vectors_sum(a1a2..an, b1b2..bm) =
+		null, n =/= m
+		[], n = 0 and m = 0 
+		(a1 + b1) U two_vectors_sum(a2..an, b2..bm), otherwise	
+|#
+
 (defun concatenate_lists (l1 l2)
 	(cond
 		((null l1) l2)
@@ -11,18 +18,25 @@
 	(cond	
 		((/= (length v1) (length v2)) nil)	
 		((and (= (length v1) 0) (= (length v2) 0)) '())	
-		(t (concatenate_lists (list (+ (car v1) (car v2))) (two_vectors_sum (cdr v1) (cdr v2))))
+		(t (append (list (+ (car v1) (car v2))) (two_vectors_sum (cdr v1) (cdr v2))))
 	))
 
 ;; b) Write a function to get from a given list the list of all atoms,
 ;;    on any level, but on the same order. 
 ;;    Example:(((A B) C) (D E)) ==> (A B C D E)
 
+#|
+	same_level_atoms(l) =
+		[], l - l1l2..ln and n = 0
+		list(l), l - not a list
+		same_level_atoms(l1) U same_level_atoms(l2..ln), otherwise (where l is a list)
+|#
+
 (defun same_level_atoms (l) 
 	(cond
 		((null l) l)		
 		((not (listp l)) (list l))
-		(t (concatenate_lists (same_level_atoms (car l)) (same_level_atoms (cdr l))))
+		(t (append (same_level_atoms (car l)) (same_level_atoms (cdr l))))
 	))
 
 
@@ -30,21 +44,36 @@
 ;;    inverts only continuous sequences of atoms. 
 ;;    Example: (a b c (d (e f) g h i)) ==> (c b a (d (f e) i h g))
 
-(defun invert (list &optional acc)
+#|
+	invert(l, acc) =
+		[], l - l1l2..ln and n = 0
+		acc U invert(l1) U invert(l2..ln) , l1 - l11l12..l1n
+		invert(l2..ln, l1 U acc), otherwise
+|#
+
+(defun invert (l acc)
  	(cond
-		((null list) acc)
-		(t 
-			(typecase (car list)
-				(list
-					(append acc
-					(list (invert (car list)))
-					(invert (cdr list)))
-				)
-				(t (invert (cdr list) (cons (car list) acc)))
-			)
-		)))
+		((null l) acc)
+		((listp (car l))
+			(append acc
+			(list (invert (car l) '()))
+			(invert (cdr l) '()))
+		)
+		(t (invert (cdr l) (cons (car l) acc)))
+	))
+
+(defun invert-wrapper (l)
+	(invert l '()))
 
 ;; d) Write a function to return the maximum value of the numerical atoms from a list, at superficial level.
+
+#|
+	max_list(l) =
+		[], l - l1l2..ln and n = 0
+		max_num(max_list(l1), max_list(l2..ln)), l1 - l11l12..l1n 				
+		max_num(l1, l2), l - l1l2..ln and n = 2
+		max_num(l1, max_list(l2..ln)), otherwise		
+|#
 
 (defun max_num (a b) 
   	(cond
