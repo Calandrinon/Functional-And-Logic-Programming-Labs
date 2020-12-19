@@ -47,7 +47,7 @@
 #|
 	invert(l, acc) =
 		[], l - l1l2..ln and n = 0
-		acc U invert(l1) U invert(l2..ln) , l1 - l11l12..l1n
+		acc U invert(l1, []) U invert(l2..ln, []), l1 - l11l12..l1n
 		invert(l2..ln, l1 U acc), otherwise
 |#
 
@@ -91,3 +91,10 @@
 		(t (max_num (car l) (max_list (cdr l))))
 	))
 
+(defun superficial-max (l)
+	(cond
+		((null l) nil)	
+		((numberp (car l)) (max_num (car l) (superficial-max (cdr l))))
+		(t (superficial-max (cdr l)))
+	)
+)
